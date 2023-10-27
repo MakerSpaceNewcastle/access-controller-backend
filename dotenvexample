@@ -1,0 +1,2 @@
+PORT=8080
+JWT_TOKEN_SECRET="!@sadjsaksalmdsa;lo2po32oewrm]sa[sap"
