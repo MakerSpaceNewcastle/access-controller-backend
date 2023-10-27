@@ -50,7 +50,6 @@ router.post('/', async function(req,res,next) {
 router.put('/', async function(req,res,next) {
 	try {
 	let device = await DeviceService.updateDevice(req.body);
-	console.log(device);
 		res.status(201).json(device);
 	}
 	catch (err) {

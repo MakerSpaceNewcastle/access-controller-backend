@@ -42,7 +42,6 @@ router.put('/', async function(req,res,next) {
 })
 
 router.post('/', async function(req,res,next) {
-  console.log("posting")
   try {
     let result = await AdminService.createOrUpdateAdmin(req.body);
     res.status(201).json({"message": "created with userID " + result});

@@ -15,7 +15,6 @@ exports.getEvents = async(pagenum) => {
 
 exports.getEventCount = async() => {
     try {
-        console.log("Count ");
         return await LogEventModel.count();
     }
     catch (err) {

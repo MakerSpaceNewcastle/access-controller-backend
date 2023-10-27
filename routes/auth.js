@@ -8,8 +8,6 @@ router.post('/login', async function(req, res, next) {
         if (req.body.username === undefined || req.body.password === undefined) {
             return res.status(200).json({message:"Need to specify username and password"})
         }
-            
-        console.log("In here");
         //Try to authenticate
         if (await LoginService.authenticate(req.body.username, req.body.password) === true) {
             //Generate and return token
@@ -24,7 +22,7 @@ router.post('/login', async function(req, res, next) {
         }
         else {
             //Nope.
-            console.log("Rejected login");
+            console.log("Rejected login from " + req.body.username);
             return res.status(401).json({message: "Invalid username or password"});
         }
     }      
