@@ -15,6 +15,7 @@ router.get('/:name/dbVersion', async function(req,res, next) {
         logger.logEvent({"type": "CONTROLLER_DB_VER_CHECKIN", "source": req.params.name})
     }
     catch (err) {
+	console.log(err.message);
         res.status(400).json({"message": err.message});
     }
 });
@@ -32,10 +33,10 @@ router.get('/:name/db', async function(req, res, next) {
 });
 
 //The controller wants to tell us about an device access event - either activated/deactivated or login-fail
-router.post('/:name/logevent', async function (req, res, next) {
+router.post('/:name/logEvent', async function (req, res, next) {
     try {
         if (req.body.type === undefined || req.params.name === undefined || req.body.message === undefined) {
-            return res.status(400).json({"error":"must define type, name and message for logger"})  
+		return res.status(400).json({"error":"must define type, name and message for logger"})  
         }
         res.status(200).json({"message": "ok"});
         //Store log event.

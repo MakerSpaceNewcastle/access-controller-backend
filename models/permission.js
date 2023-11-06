@@ -44,7 +44,7 @@ exports.findDevicesForUser = async (user_id) => {
 }
 
 exports.getHashesByDeviceId = async(device_id) => {
-    var sql = "SELECT rfid.card_hash FROM rfid, user, permission WHERE rfid.active = 1 AND user.id = rfid.user_id AND permission.device_id = ? AND permission.user_id = user.id"
+    var sql = "SELECT rfid.card_hash FROM rfid, user, permission WHERE rfid.active = 1 AND user.active = 1 AND user.id = rfid.user_id AND permission.device_id = ? AND permission.user_id = user.id"
     var params = [device_id];
     return  await db.dball(sql, params);
 }
