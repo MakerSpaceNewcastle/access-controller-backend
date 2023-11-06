@@ -1,6 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
+	var path = require('path');
 var logger = require('morgan');
 const cookieParser = require("cookie-parser");
 
@@ -37,6 +37,8 @@ app.use('/auth', authRouter);
 
 //Insecure routes for the devices to get DB updates/log access
 app.use('/controllers', controllersRouter);
+app.use('/controller_fw', express.static('controller_fw'));
+
 //Need to fix this to allow posting to logs, but not viewing then
 app.use('/logs', logRouter);
 
