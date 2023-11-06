@@ -57,7 +57,6 @@ module.exports.dbrun = async(sql, params) => {
         console.log(err);
         return rej(err);
       }
-      console.log("AOK " + this.lastID)
       return res(this.lastID);
     })
 });
