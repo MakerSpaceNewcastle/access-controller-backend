@@ -11,7 +11,7 @@ exports.generateDBHash = async (devicename) => {
     return db_hash;
 }
 
-exports.generateDBString = async () => {
+exports.generateDBString = async (devicename) => {
     let hashes = await PermissionService.getHashesForDevice(devicename);
     let hashstring = "";
     hashes.forEach(e=>{hashstring += e.card_hash + "\r\n"});
