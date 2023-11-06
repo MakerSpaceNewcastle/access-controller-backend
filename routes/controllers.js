@@ -8,7 +8,8 @@ const logger = require('../services/logger')
 router.get('/:name/dbVersion', async function(req,res, next) {
     //Build the hash string, and send the MD5 hash back to the user.
     try {
-        let db_signature = await ControllerService.generateDBHash();
+        console.log("Generating hash");
+        let db_signature = await ControllerService.generateDBHash(req.params.name);
         res.status(200).send(db_signature);
         //Record that the controller checked in
         logger.logEvent({"type": "CONTROLLER_DB_VER_CHECKIN", "source": req.params.name})
@@ -20,7 +21,7 @@ router.get('/:name/dbVersion', async function(req,res, next) {
 
 router.get('/:name/db', async function(req, res, next) {    
     try {
-        let dbString = await ControllerService.generateDBString();
+        let dbString = await ControllerService.generateDBString(req.params.name);
         res.status(200).send(dbString);
         //Record that the controller performed a DB update
         logger.logEvent({"type": "CONTROLLER_DB_UPDATE", "source": req.params.name});
