@@ -25,3 +25,16 @@ exports.deleteByUserId = async(id) => {
     var params = [id];   
     return await db.dbdelete(sql, params);
 }
+
+exports.findUserByHash = async(hash) => {
+    var sql = 'SELECT user_id FROM rfid WHERE card_hash = ?'
+    var params = [hash];
+    let result = await db.dbget(sql,params);
+
+    if (result !== undefined) {
+        sql = 'SELECT * FROM user WHERE id = ?'
+        params = [result.user_id];
+        return await db.dbget(sql,params);
+    }
+    return undefined;
+}
