@@ -18,7 +18,7 @@ router.get('/:name/dbVersion', async function(req,res, next) {
     }
 });
 
-router.get('/:name/db', async function(req, res, next) {    
+router.get('/:name/db', async function(req, res, next) {   
     try {
         let dbString = await ControllerService.generateDBString(req.params.name);
         res.status(200).send(dbString);

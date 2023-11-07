@@ -4,7 +4,7 @@ const RfidModel  = require('../models/rfid');
 exports.logEvent = async (event) => {
     //If a hash has been provided to us, see if we can identify the user
     //so we can store their name in the log message
-    if (event.type === undefined || event.name === undefined) {
+    if (event.type === undefined || event.source === undefined) {
         throw Error("Name and Type must be defined at minimum");
     }
 

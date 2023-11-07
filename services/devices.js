@@ -9,7 +9,7 @@ exports.getAllDevices = async () => {
 
 exports.getDeviceById = async (id) => {
     let device = await DeviceModel.findById(id);
-
+    //Pull in the list of users for this device
     if (device !== undefined) {
         let users = await PermissionsModel.findUsersForDevice(id);
         device["users"] = users;
@@ -19,16 +19,18 @@ exports.getDeviceById = async (id) => {
 
 exports.getDeviceByName = async (name) => {
     let device = await DeviceModel.findByName(name);
-
+    //Pull in the list of users for this device
     if (device !== undefined) {
-        let users = await PermissionsModel.findUsersForDevice(id);
+        let users = await PermissionsModel.findUsersForDevice(device.id);
         device["users"] = users;
     }
     return device;
 }
 
 exports.createDevice = async (device) => {
-    return await DeviceModel.create(device);
+    let result = await DeviceModel.create(device);
+        return result;
+    
 }
 
 exports.updateDevice = async(device) => {
