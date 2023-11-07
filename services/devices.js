@@ -29,12 +29,17 @@ exports.getDeviceByName = async (name) => {
 
 exports.createDevice = async (device) => {
     let result = await DeviceModel.create(device);
-        return result;
-    
+    return result;   
 }
 
 exports.updateDevice = async(device) => {
-    return await DeviceModel.update(device);
+    let result = await DeviceModel.update(device);
+    if (device.users !== undefined ) {
+        //Remove all users from this device, then re-add individually
+        await PermissionsModel.deleteByDeviceId(device.id);
+        device.users.map(e=> {PermissionsModel.create({"user_id": e.id, "device_id": device.id})});
+    }
+    return result;
 }
 
 exports.deleteDevice = async(deviceid) => {
