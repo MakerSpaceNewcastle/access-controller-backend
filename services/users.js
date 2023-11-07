@@ -3,6 +3,7 @@ const UserModel = require('../models/user');
 const RfidModel = require('../models/rfid');
 const PermissionModel = require('../models/permission')
 const DeviceModel = require ('../models/device');
+const RfidService = require('../services/rfid');
 
 exports.getAllUsers = async () => {
     return await UserModel.find();
@@ -36,7 +37,17 @@ exports.createOrUpdateUser = async (user) => {
            //We need to inject the user id into the rfid record so the RfidModel can use it
            //Also can't use map=> as need to use await.
            user.rfids[i].user_id = user.id;
-           await RfidModel.create(user.rfids[i])
+           //We have to try/catch here because otherwise an exception deletes all the RFIDs.
+           let errors = "";
+           try {
+            await RfidService.createRfid(user.rfids[i])
+           }
+           catch (err) {
+            errors+=err.message+"\r\n";
+           }
+           if (errors!="") {
+            throw Error(errors);
+           }
         };
         //Clear our permissions
         await PermissionModel.deleteByUserId(user.id);
