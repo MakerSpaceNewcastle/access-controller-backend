@@ -5,19 +5,13 @@ exports.logEvent = async (event) => {
     return await LogEventModel.create(event);
 }
 
-exports.getEvents = async(pagenum) => {
-    try {
-        return await LogEventModel.find(pagenum);
-    } catch (err) {
-        console.log("LogEvent error  - " + err);
-    }    
+exports.getEvents = async(startnum, endnum, device) => {
+    if (isNaN(startnum)|| isNaN(endnum) || startnum < 0 || endnum < 0) {
+        throw new Error("Invalid start/end numbers")
+    }
+    return await LogEventModel.find(startnum, endnum, device);
 }
 
-exports.getEventCount = async() => {
-    try {
-        return await LogEventModel.count();
-    }
-    catch (err) {
-        
-    }
+exports.getEventCount = async(device) => {
+    return await LogEventModel.count(device);
 }
