@@ -13,7 +13,7 @@ exports.getHashesForDevice = async (devicename) => {
         throw Error("Device does not exist");
     }
 
-    let hashes;
+    let hashes = [];
     if (device.available) {
         //If the device is available, go and find all the hashes of the users who should be able to access it
         hashes = await PermissionModel.getHashesByDeviceId(device.id);
