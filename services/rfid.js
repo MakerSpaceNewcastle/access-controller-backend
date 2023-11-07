@@ -6,6 +6,10 @@ exports.findRfidsForUser = async (user_id) => {
 }
 
 exports.createRfid = async (rfid) => {
+    //Validate the RFID has a valid card hash
+    if (rfid.card_hash.match(/^[0-9A-Fa-f]{32}$/) == null) {
+        throw Error("Invalid card hash - must be 32 hexadecimal chars")
+    }
     return await RfidModel.create(rfid);
 }
 
