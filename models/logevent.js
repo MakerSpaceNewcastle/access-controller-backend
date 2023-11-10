@@ -5,11 +5,11 @@ exports.find = async (startnum, endnum, device) => {
     
     let sql, params;
     if (device===undefined || device == "all") {
-        sql = "SELECT * FROM log_event ORDER BY datetime DESC LIMIT ? OFFSET ?";
+        sql = "SELECT * FROM log_event ORDER BY id DESC LIMIT ? OFFSET ?";
         params =  [endnum-startnum, startnum];
     }
     else {
-        sql = "SELECT * FROM log_event WHERE source = ? ORDER BY datetime DESC LIMIT ? OFFSET ?";
+        sql = "SELECT * FROM log_event WHERE source = ? ORDER BY id DESC LIMIT ? OFFSET ?";
         params =  [device, endnum-startnum, startnum];
     }
     return await db.dball(sql, params);
