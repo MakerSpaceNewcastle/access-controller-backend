@@ -23,7 +23,7 @@ exports.logEvent = async (event) => {
 }
 
 exports.getEvents = async(startnum, endnum, device) => {
-    if (isNaN(startnum)|| isNaN(endnum) || startnum < 0 || endnum < 0 || endnum < startnum) {
+    if (isNaN(startnum)|| isNaN(endnum) || startnum < 0 || endnum < 0 || Number(endnum) < Number(startnum)) {
         throw Error("Invalid start/end numbers")
     }
     return await LogEventModel.find(startnum, endnum, device);
