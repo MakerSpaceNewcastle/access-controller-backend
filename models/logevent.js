@@ -9,7 +9,7 @@ exports.find = async (startnum, endnum, device) => {
         params =  [endnum-startnum, startnum];
     }
     else {
-        sql = "SELECT * FROM log_event WHERE source = ? ORDER BY id DESC LIMIT ? OFFSET ?";
+        sql = "SELECT * FROM log_event WHERE source = ? ORDER BY datetime(datetime) DESC LIMIT ? OFFSET ?";
         params =  [device, endnum-startnum, startnum];
     }
     return await db.dball(sql, params);
