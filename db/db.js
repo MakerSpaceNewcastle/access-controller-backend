@@ -22,7 +22,7 @@ async function initTables() {
     CREATE TABLE if not exists device (id INTEGER PRIMARY KEY, name TEXT UNIQUE NOT NULL, description TEXT, available BOOLEAN);
     CREATE TABLE if not exists permission (id INTEGER PRIMARY KEY, device_id INTEGER, user_id INTEGER);
     CREATE TABLE if not exists administrator (id INTEGER PRIMARY KEY, username TEXT UNIQUE NOT NULL, password_hash TEXT NOT NULL);
-    CREATE TABLE if not exists log_event (id INTEGER PRIMARY KEY, datetime TEXT, source TEXT, type TEXT, message TEXT)`, (err)=>{
+    CREATE TABLE if not exists log_event (id INTEGER PRIMARY KEY, datetime TEXT DEFAULT CURRENT_TIMESTAMP, source TEXT, type TEXT, message TEXT)`, (err)=>{
          
       if (err) {
         console.log("Error initialising tables - " + err)

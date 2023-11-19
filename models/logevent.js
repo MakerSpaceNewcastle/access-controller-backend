@@ -5,7 +5,7 @@ exports.find = async (startnum, endnum, device) => {
     
     let sql, params;
     if (device===undefined || device == "all") {
-        sql = "SELECT * FROM log_event ORDER BY id DESC LIMIT ? OFFSET ?";
+        sql = "SELECT * FROM log_event ORDER BY datetime(datetime) DESC LIMIT ? OFFSET ?";
         params =  [endnum-startnum, startnum];
     }
     else {
@@ -30,7 +30,7 @@ exports.count = async(device)=> {
 }
 
 exports.create = async (event) => {
-    var sql = "INSERT INTO log_event (datetime, source, type, message) VALUES (?, ?, ?, ?)"
-    var params = [new Date().toUTCString(), event.source, event.type, event.message]
+    var sql = "INSERT INTO log_event (source, type, message) VALUES (?, ?, ?)"
+    var params = [event.source, event.type, event.message]
     return await db.dbrun(sql, params);
 }
